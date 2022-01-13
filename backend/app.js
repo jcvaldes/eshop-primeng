@@ -1,8 +1,17 @@
 const express = require('express');
+const morgan = require('morgan');
 const app = express();
 require('dotenv/config');
-const api = process.env.API_URL;
+const cors = require('cors');
 
+// midlewares
+app.use(cors());
+app.options('*', cors());
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(morgan('tiny'));
+
+const api = process.env.API_URL;
 app.get(`${api}/products`, (req, res) => {
   const product = {
     id: 1,
